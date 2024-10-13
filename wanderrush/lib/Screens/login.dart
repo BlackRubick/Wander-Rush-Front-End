@@ -7,107 +7,148 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          // Círculo izquierda arriba
-          Positioned(
-            left: -30,
-            top: -60,
-            child: Container(
-              width: 145,
-              height: 152,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFF5F5C58),
-              ),
-            ),
-          ),
-          // Círculo izquierda abajo
-          Positioned(
-            left: -200,
-            top: 560,
-            child: Container(
-              width: 420,
-              height: 420,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFF5F5C58),
-              ),
-            ),
-          ),
-          // Círculo arriba derecha 
-          Positioned(
-            right: -320,
-            top: -150,
-            child: Container(
-              width: 455,
-              height: 425,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFF5F5C58),
-              ),
-            ),
-          ),
-          // Círculo abajo derecha
-          Positioned(
-            right: -60,
-            bottom: 150,
-            child: Container(
-              width: 145,
-              height: 152,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFF5F5C58),
-              ),
-            ),
-          ),
-          // Contenido centrado
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Imagen con transformación
-                  Transform.translate(
-                    offset: const Offset(0, -100), // Ajusta el valor para mover la imagen hacia arriba
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Iniciar sesión',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                  Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
                     child: Image.asset(
-                      'assets/images/WanderRushLogo.png',
-                      fit: BoxFit.contain,
+                      'assets/images/avatar.png', // Asegúrate de tener esta imagen en la ubicación correcta
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  const Text(
-                    'Bienvenido a Wander Rush, donde podras encontrar y compartir nuevas experiencias',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  const SizedBox(height: 80), 
-                  ElevatedButton(
-                    onPressed: () {
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(227, 141, 111, 1), 
-                      padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    child: const Text(
-                      'Iniciar sesión',
+                const SizedBox(height: 32),
+                // Campo de Correo Electrónico
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Correo electrónico:',
                       style: TextStyle(
                         fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
+
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                // Campo de Contraseña
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Contraseña:',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
+
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
+                        ),
+                        suffixIcon: Icon(Icons.visibility),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Olvide la contraseña',
+                      style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(227, 141, 111, 1),
+                    padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text(
+                    'Iniciar sesión',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('¿No tienes una cuenta?'),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Crear cuenta',
+                        style: TextStyle(
+                          color: Color.fromRGBO(227, 141, 111, 1),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
