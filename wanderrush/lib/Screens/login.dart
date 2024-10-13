@@ -22,17 +22,17 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                  Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.asset(
-                      'assets/images/avatar.png', // Asegúrate de tener esta imagen en la ubicación correcta
-                      fit: BoxFit.cover,
-                    ),
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                   ),
+                  child: Image.asset(
+                    'assets/images/avatar.png', 
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 const SizedBox(height: 32),
                 // Campo de Correo Electrónico
                 Column(
@@ -50,7 +50,6 @@ class LoginPage extends StatelessWidget {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
                           borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
-
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
@@ -82,7 +81,6 @@ class LoginPage extends StatelessWidget {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
                           borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
-
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
@@ -92,7 +90,7 @@ class LoginPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30.0),
                           borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
                         ),
-                        suffixIcon: Icon(Icons.visibility),
+                        suffixIcon: const Icon(Icons.visibility),
                       ),
                     ),
                   ],
@@ -113,7 +111,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(227, 141, 111, 1),
                     padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 16),
@@ -135,7 +135,9 @@ class LoginPage extends StatelessWidget {
                   children: [
                     const Text('¿No tienes una cuenta?'),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register'); /
+                      },
                       child: const Text(
                         'Crear cuenta',
                         style: TextStyle(
