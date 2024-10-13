@@ -1,0 +1,1 @@
+wander Rush is a social network to find new places for tourists or for the same people who live in the same place, to be able to go out with friends to hang out, whether going out to eat, running, playing pool, etc. ...find all kinds of activities and create new activities for new people to join and make new friends
