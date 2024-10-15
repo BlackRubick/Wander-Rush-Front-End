@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -112,7 +114,8 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    
+                    Navigator.pushNamed(context, '/home');
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(227, 141, 111, 1),
@@ -136,7 +139,7 @@ class LoginPage extends StatelessWidget {
                     const Text('¿No tienes una cuenta?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/register'); /
+                        Navigator.pushNamed(context, '/register'); 
                       },
                       child: const Text(
                         'Crear cuenta',

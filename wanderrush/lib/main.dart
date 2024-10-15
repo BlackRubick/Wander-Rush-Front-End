@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wanderrush/screens/homebefore.dart';
-import 'package:wanderrush/screens/login.dart'; // Asegúrate de que esta ruta sea correcta
-import 'package:wanderrush/screens/register.dart'; // Asegúrate de que esta ruta sea correcta
+import 'package:wanderrush/screens/login.dart';
+import 'package:wanderrush/screens/register.dart'; 
+import 'package:wanderrush/screens/home.dart'; 
+import 'package:wanderrush/screens/chatbot.dart'; 
+import 'package:wanderrush/screens/historyscreen.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +24,11 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomeBefore(),
         '/login': (context) => const LoginPage(), 
-        '/register': (context) => const RegisterScreen(), 
+        '/register': (context) => const RegisterScreen(),
+        '/home': (context) => const Home(), 
+        '/chatbot': (context) => const ChatbotScreen(),
+        '/history': (context) => const HistoryScreen(),
+
       },
     );
   }
