@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart'; 
-import 'package:wanderrush/screens/historyscreen.dart'; 
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:wanderrush/screens/historyscreen.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);
@@ -12,49 +13,77 @@ class ChatbotScreen extends StatefulWidget {
 }
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
-  List<String> _messages = []; 
+  List<String> _messages = [];
   final TextEditingController _controller = TextEditingController();
+  bool _isConnected = false; //estado de la conexión
 
   @override
   void initState() {
     super.initState();
-    _loadHistory(); 
+    _loadHistory();
+    _checkInternetConnection(); // verificar la conexión al iniciar
+    _monitorConnectionChanges(); // iniciar monitoreo de cambios en la conexión
   }
 
-  // Función para cargar el historial
-  Future<void> _loadHistory() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _messages = prefs.getStringList('chat_history') ?? []; // enseñamos el historial 
+  // verificar el estado de la conexión a Internet
+  Future<void> _checkInternetConnection() async {
+    bool hasConnection = await InternetConnectionChecker().hasConnection;
+    _updateConnectionStatus(hasConnection);
+  }
+
+  // monitorear los cambios en la conexión a Internet
+  void _monitorConnectionChanges() {
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      final hasInternet = status == InternetConnectionStatus.connected;
+      _updateConnectionStatus(hasInternet);
     });
   }
 
-  // Función para guardar el historial
-  Future<void> _saveHistory() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('chat_history', _messages); // aqui guardamos el historial 
+  // actualiza el estado de la conexión
+  void _updateConnectionStatus(bool isConnected) {
+    setState(() {
+      _isConnected = isConnected;
+    });
   }
 
+  // cargar el historial de mensajes
+  Future<void> _loadHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _messages = prefs.getStringList('chat_history') ?? [];
+    });
+  }
+
+  // Guardar el historial de mensajes
+  Future<void> _saveHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('chat_history', _messages);
+  }
+
+  // Enviar un mensaje al bot
   Future<void> _sendMessage() async {
     if (_controller.text.isNotEmpty) {
+      String userMessage = _controller.text;
+
       setState(() {
-        _messages.add(_controller.text);
+        _messages.add('Usuario: $userMessage');
       });
 
-      final userMessage = _controller.text;
       _controller.clear();
 
       try {
+        String history = _messages.join('\n');
+
         final response = await http.post(
-          Uri.parse('http://10.10.0.29:5001/ask'),
+          Uri.parse('http://192.168.1.85:5001/ask'),
           headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({'question': userMessage}), 
+          body: jsonEncode({'question': userMessage, 'history': history}),
         );
 
         if (response.statusCode == 200) {
           final responseData = jsonDecode(response.body);
           setState(() {
-            _messages.add(responseData['answer']); 
+            _messages.add('Bot: ${responseData['answer']}');
           });
         } else {
           setState(() {
@@ -67,13 +96,11 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         });
       }
 
-      // guarda el emnsaje en mi historial
       _saveHistory();
     }
   }
 
   void _viewHistory() {
-    //nos lleva a la vista de el historial 
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -83,11 +110,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   }
 
   void _clearChat() {
-    // se limpia el historial con la x que le puse hasta arriba xd 
     setState(() {
-      _messages.clear(); 
+      _messages.clear();
     });
-    _saveHistory(); // fuarda el historial despues de borrar
+    _saveHistory();
   }
 
   @override
@@ -135,7 +161,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     children: [
                       if (index % 2 == 0)
                         const CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/avatar.png'),
+                          backgroundImage: AssetImage('assets/images/perro.png'),
                           radius: 20,
                         ),
                       const SizedBox(width: 10),
@@ -152,7 +178,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                       if (index % 2 != 0) const SizedBox(width: 10),
                       if (index % 2 != 0)
                         const CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/avatar2.png'),
+                          backgroundImage: AssetImage('assets/images/bot.jpeg'),
                           radius: 20,
                         ),
                     ],
@@ -186,7 +212,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   child: IconButton(
                     icon: const Icon(Icons.send),
                     color: Colors.white,
-                    onPressed: _sendMessage,
+                    onPressed: _isConnected ? _sendMessage : null, // este es oa desactivar el boton cuando no hay wifi
                   ),
                 ),
               ],

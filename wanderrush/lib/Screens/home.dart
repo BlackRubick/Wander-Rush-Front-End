@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wanderrush/screens/chatbot.dart'; // Importa la pantalla del chatbot
+import 'package:wanderrush/screens/chatbot.dart'; 
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -64,7 +64,7 @@ class Home extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/chatbot'); // Cambiar a la ruta del chatbot
+          Navigator.pushNamed(context, '/chatbot'); 
         },
         backgroundColor: Color(0xFFE88A73),
         child: Icon(Icons.chat_bubble, color: Colors.black),
