@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Clase principal del perfil
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
@@ -140,7 +139,6 @@ class Profile extends StatelessWidget {
   }
 }
 
-// Clase para editar el perfil
 class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -176,7 +174,7 @@ class EditProfile extends StatelessWidget {
             SizedBox(height: 20),
             Text('Nombre:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             TextFormField(
-              initialValue: 'Seoul', // Valor inicial
+              initialValue: 'Seoul', 
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
               ),
@@ -184,7 +182,7 @@ class EditProfile extends StatelessWidget {
             SizedBox(height: 20),
             Text('Gustos:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             TextFormField(
-              initialValue: 'Arte y Música', // Valor inicial
+              initialValue: 'Arte y Música', 
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
               ),
@@ -193,7 +191,6 @@ class EditProfile extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Guarda los cambios y vuelve a la pantalla de perfil
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
@@ -212,7 +209,6 @@ class EditProfile extends StatelessWidget {
   }
 }
 
-// Clase para la tarjeta de publicaciones (PostCard)
 class PostCard extends StatelessWidget {
   const PostCard({super.key});
 
@@ -249,7 +245,6 @@ class PostCard extends StatelessWidget {
   }
 }
 
-// Pantalla de configuración
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -274,14 +269,12 @@ class SettingsScreen extends StatelessWidget {
             leading: Icon(Icons.delete),
             title: Text('Eliminar cuenta'),
             onTap: () {
-              // Agregar funcionalidad para eliminar cuenta
             },
           ),
           ListTile(
             leading: Icon(Icons.info),
             title: Text('Términos y condiciones'),
             onTap: () {
-              // Agregar funcionalidad para ver términos y condiciones
             },
           ),
           Divider(),
@@ -289,7 +282,6 @@ class SettingsScreen extends StatelessWidget {
             leading: Icon(Icons.logout),
             title: Text('Cerrar sesión'),
             onTap: () {
-              // Agregar funcionalidad para cerrar sesión
             },
           ),
         ],
