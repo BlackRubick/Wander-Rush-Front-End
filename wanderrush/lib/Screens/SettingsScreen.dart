@@ -21,21 +21,18 @@ class SettingScreen extends StatelessWidget {
                   leading: Icon(Icons.edit),
                   title: Text('Editar perfil'),
                   onTap: () {
-                    // Add functionality for editing profile
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.delete),
                   title: Text('Eliminar cuenta'),
                   onTap: () {
-                    // Add functionality for deleting account
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.info),
                   title: Text('Términos y condiciones'),
                   onTap: () {
-                    // Add functionality for viewing terms and conditions
                   },
                 ),
               ],
@@ -46,7 +43,6 @@ class SettingScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton.icon(
               onPressed: () {
-                // Add functionality for logging out
               },
               icon: Icon(Icons.logout),
               label: Text('Cerrar sesión'),
