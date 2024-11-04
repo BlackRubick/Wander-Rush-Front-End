@@ -16,6 +16,8 @@ dependencies:
   shared_preferences: ^2.0.13
   internet_connection_checker: ^1.0.0
   cupertino_icons: ^1.0.8
+  emoji_picker_flutter: ^2.0.0 # Añade esta línea
+
 
 dev_dependencies:
   flutter_test:

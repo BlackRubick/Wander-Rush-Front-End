@@ -6,7 +6,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:wanderrush/screens/historyscreen.dart';
 
 class ChatbotScreen extends StatefulWidget {
-  const ChatbotScreen({Key? key}) : super(key: key);
+  const ChatbotScreen({super.key});
 
   @override
   _ChatbotScreenState createState() => _ChatbotScreenState();
@@ -75,7 +75,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         String history = _messages.join('\n');
 
         final response = await http.post(
-          Uri.parse('http://192.168.1.85:5001/ask'),
+          Uri.parse('http://192.168.96.138:5001/ask'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'question': userMessage, 'history': history}),
         );

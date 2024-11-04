@@ -1,14 +1,16 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool _termsAccepted = false; 
+  bool _termsAccepted = false;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -16,6 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   
   String? _emailError;
   String? _passwordError;
+  bool _isLoading = false; // Para mostrar un indicador de carga
 
   bool _isButtonEnabled() {
     return _termsAccepted && _emailError == null && _passwordError == null;
@@ -37,6 +40,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _passwordError = 'Las contraseñas no coinciden.';
       }
     });
+  }
+
+  Future<void> _registerUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+final url = Uri.parse('http://10.0.2.2:8000/register'); // URL de la API para emulador Android
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'username': _usernameController.text,
+        'email': _emailController.text,
+        'password': _passwordController.text,
+      }),
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (response.statusCode == 200) {
+      // Registro exitoso
+      Navigator.pushNamed(context, '/login');
+    } else {
+      // Error en el registro
+      final errorMessage = jsonDecode(response.body)['error'] ?? 'Error al registrar';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    }
   }
 
   @override
@@ -210,33 +245,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ],
                 ),
-
+                
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: _isButtonEnabled() ? () {
-                    _validateForm(); // Llama a la validación al presionar el botón
-
-                    if (_isButtonEnabled()) {
-                      // Lógica de registro aquí
-                      // Por ejemplo: registrar usuario
-                    }
-                  } : null, // Deshabilita el botón si los términos no están aceptados
+                    _validateForm();
+                    if (_isButtonEnabled()) _registerUser();
+                  } : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _isButtonEnabled() 
                         ? const Color.fromRGBO(227, 141, 111, 1) 
-                        : Colors.grey, // Cambia el color según el estado del checkbox
+                        : Colors.grey,
                     padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: const Text(
-                    'Registrar',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
+                  child: _isLoading 
+                      ? CircularProgressIndicator(color: Colors.white) 
+                      : const Text('Registrar', style: TextStyle(fontSize: 16, color: Colors.black)),
                 ),
                 const SizedBox(height: 24),
                 Row(
@@ -244,19 +271,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     const Text('¿Ya tienes una cuenta?'),
                     TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/login'); 
-                      },
-                      child: const Text(
-                        'Iniciar sesión',
-                        style: TextStyle(
-                          color: Color.fromRGBO(227, 141, 111, 1),
-                        ),
-                      ),
+                      onPressed: () => Navigator.pushNamed(context, '/login'),
+                      child: const Text('Iniciar Sesión'),
                     ),
                   ],
                 ),
-                const SizedBox(height: 50), 
               ],
             ),
           ),

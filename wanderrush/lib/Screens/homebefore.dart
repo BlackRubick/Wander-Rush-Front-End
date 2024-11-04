@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wanderrush/screens/login.dart';
 
 class HomeBefore extends StatelessWidget {
-  const HomeBefore({Key? key}) : super(key: key);
+  const HomeBefore({super.key});
 
   @override
   Widget build(BuildContext context) {

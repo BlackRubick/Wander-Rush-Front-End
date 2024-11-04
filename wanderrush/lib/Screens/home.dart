@@ -1,8 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:wanderrush/screens/chatbot.dart'; 
+import 'package:wanderrush/Screens/profile.dart';
+import 'package:wanderrush/screens/PeopleView.dart';
+import 'package:wanderrush/screens/Places.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    // Navegación según el icono seleccionado
+    if (index == 0) {
+      // Icono de la casa lleva a Places
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Places()), // Cambia a tu vista Places
+      );
+    } else if (index == 1) {
+      // Icono de la lupa lleva a Home
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()), // Cambia a tu vista Home
+      );
+    } else if (index == 3) {
+      // Icono de personas lleva a PeopleView
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PeopleView()),
+      );
+    } else if (index == 4) {
+      // Icono de perfil lleva a Profile
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Profile()),
+      );
+    }
+    // Agrega más navegación si es necesario
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,13 +141,11 @@ class Home extends StatelessWidget {
             label: '',
           ),
         ],
-        currentIndex: 0,
+        currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black54,
         iconSize: 30,
-        onTap: (index) {
-          // Manejar la navegación de la barra inferior aquí
-        },
+        onTap: _onItemTapped,
       ),
     );
   }

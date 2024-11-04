@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HistoryScreen extends StatelessWidget {
   final List<String> messages;
 
-  const HistoryScreen({Key? key, this.messages = const []}) : super(key: key); 
+  const HistoryScreen({super.key, this.messages = const []}); 
 
   @override
   Widget build(BuildContext context) {
