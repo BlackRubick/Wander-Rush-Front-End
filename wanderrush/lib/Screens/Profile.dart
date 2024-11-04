@@ -12,7 +12,6 @@ class Profile extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Sección de perfil
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -61,13 +60,11 @@ class Profile extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: () {
-                        // Acción para editar perfil
                       },
                     ),
                     IconButton(
                       icon: Icon(Icons.settings),
                       onPressed: () {
-                        // Acción para configuración
                       },
                     ),
                   ],
@@ -76,10 +73,9 @@ class Profile extends StatelessWidget {
             ),
           ),
           Divider(),
-          // Sección de publicaciones
           Expanded(
             child: ListView.builder(
-              itemCount: 2, // número de publicaciones
+              itemCount: 2, 
               itemBuilder: (context, index) {
                 return PostCard();
               },
@@ -87,7 +83,6 @@ class Profile extends StatelessWidget {
           ),
         ],
       ),
-      // Barra de navegación inferior
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Color(0xFFDAD3CC),
@@ -116,22 +111,19 @@ class Profile extends StatelessWidget {
             label: '',
           ),
         ],
-        currentIndex: 4, // Índice de la pestaña activa
+        currentIndex: 4, 
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black54,
         iconSize: 30,
         onTap: (index) {
-          // Navegación en la barra inferior
           if (index == 0) {
             Navigator.pushNamed(context, '/home');
           } else if (index == 1) {
-            // Acción para la búsqueda
           } else if (index == 2) {
-            // Acción para agregar publicación
           } else if (index == 3) {
             Navigator.pushNamed(context, '/people');
           } else if (index == 4) {
-            Navigator.pushNamed(context, '/profile'); // Acción para la vista de perfil
+            Navigator.pushNamed(context, '/profile'); 
           }
         },
       ),

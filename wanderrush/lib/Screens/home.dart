@@ -18,34 +18,27 @@ class _HomeState extends State<Home> {
     setState(() {
       _selectedIndex = index;
     });
-
-    // Navegación según el icono seleccionado
     if (index == 0) {
-      // Icono de la casa lleva a Places
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Places()), // Cambia a tu vista Places
+        MaterialPageRoute(builder: (context) => Places()), 
       );
     } else if (index == 1) {
-      // Icono de la lupa lleva a Home
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Home()), // Cambia a tu vista Home
+        MaterialPageRoute(builder: (context) => Home()), 
       );
     } else if (index == 3) {
-      // Icono de personas lleva a PeopleView
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => PeopleView()),
       );
     } else if (index == 4) {
-      // Icono de perfil lleva a Profile
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Profile()),
       );
     }
-    // Agrega más navegación si es necesario
   }
 
   @override
@@ -153,7 +146,6 @@ class _HomeState extends State<Home> {
   Widget _buildCategoryButton(String text) {
     return ElevatedButton(
       onPressed: () {
-        // Acción para cada categoría
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xFFF9E5B8),

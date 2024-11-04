@@ -21,17 +21,16 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   void initState() {
     super.initState();
     _loadHistory();
-    _checkInternetConnection(); // verificar la conexión al iniciar
-    _monitorConnectionChanges(); // iniciar monitoreo de cambios en la conexión
+    _checkInternetConnection(); 
+    _monitorConnectionChanges(); 
   }
 
-  // verificar el estado de la conexión a Internet
   Future<void> _checkInternetConnection() async {
     bool hasConnection = await InternetConnectionChecker().hasConnection;
     _updateConnectionStatus(hasConnection);
   }
 
-  // monitorear los cambios en la conexión a Internet
+  
   void _monitorConnectionChanges() {
     InternetConnectionChecker().onStatusChange.listen((status) {
       final hasInternet = status == InternetConnectionStatus.connected;
@@ -39,14 +38,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     });
   }
 
-  // actualiza el estado de la conexión
+  
   void _updateConnectionStatus(bool isConnected) {
     setState(() {
       _isConnected = isConnected;
     });
   }
 
-  // cargar el historial de mensajes
+  
   Future<void> _loadHistory() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -54,13 +53,13 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     });
   }
 
-  // Guardar el historial de mensajes
+  
   Future<void> _saveHistory() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('chat_history', _messages);
   }
 
-  // Enviar un mensaje al bot
+  
   Future<void> _sendMessage() async {
     if (_controller.text.isNotEmpty) {
       String userMessage = _controller.text;
@@ -212,7 +211,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   child: IconButton(
                     icon: const Icon(Icons.send),
                     color: Colors.white,
-                    onPressed: _isConnected ? _sendMessage : null, // este es oa desactivar el boton cuando no hay wifi
+                    onPressed: _isConnected ? _sendMessage : null,
                   ),
                 ),
               ],

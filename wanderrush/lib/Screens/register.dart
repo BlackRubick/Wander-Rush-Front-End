@@ -18,7 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   
   String? _emailError;
   String? _passwordError;
-  bool _isLoading = false; // Para mostrar un indicador de carga
+  bool _isLoading = false; 
 
   bool _isButtonEnabled() {
     return _termsAccepted && _emailError == null && _passwordError == null;
@@ -28,14 +28,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {
       _emailError = null;
       _passwordError = null;
-
-      // Validación de correo electrónico
       final email = _emailController.text;
       if (!RegExp(r'^[a-zA-Z0-9._%+-]+@hotmail\.[a-zA-Z]{2,}$').hasMatch(email)) {
         _emailError = 'Por favor ingrese un correo válido de hotmail.';
       }
-
-      // Comparar contraseñas
       if (_passwordController.text != _confirmPasswordController.text) {
         _passwordError = 'Las contraseñas no coinciden.';
       }
@@ -47,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _isLoading = true;
     });
 
-final url = Uri.parse('http://10.0.2.2:8000/register'); // URL de la API para emulador Android
+final url = Uri.parse('http://10.0.2.2:8000/register'); 
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -57,16 +53,12 @@ final url = Uri.parse('http://10.0.2.2:8000/register'); // URL de la API para em
         'password': _passwordController.text,
       }),
     );
-
     setState(() {
       _isLoading = false;
     });
-
     if (response.statusCode == 200) {
-      // Registro exitoso
       Navigator.pushNamed(context, '/login');
     } else {
-      // Error en el registro
       final errorMessage = jsonDecode(response.body)['error'] ?? 'Error al registrar';
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(errorMessage)),
@@ -96,8 +88,6 @@ final url = Uri.parse('http://10.0.2.2:8000/register'); // URL de la API para em
                   ),
                 ),
                 const SizedBox(height: 16),
-
-                // Campo para Nombre de Usuario
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -127,8 +117,6 @@ final url = Uri.parse('http://10.0.2.2:8000/register'); // URL de la API para em
                   ],
                 ),
                 const SizedBox(height: 8),
-
-                // Campo para Correo Electrónico
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -159,8 +147,6 @@ final url = Uri.parse('http://10.0.2.2:8000/register'); // URL de la API para em
                   ],
                 ),
                 const SizedBox(height: 8),
-
-                // Campo para Contraseña
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -192,8 +178,6 @@ final url = Uri.parse('http://10.0.2.2:8000/register'); // URL de la API para em
                   ],
                 ),
                 const SizedBox(height: 8),
-
-                // Campo para Confirmar Contraseña
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

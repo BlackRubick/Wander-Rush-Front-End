@@ -8,9 +8,8 @@ class Places extends StatefulWidget {
 }
 
 class _PlacesState extends State<Places> {
-  bool showCommunity = true; // Variable de estado para controlar la vista actual
+  bool showCommunity = true;
 
-  // Lista de datos para la sección de Lugares
   final List<Map<String, dynamic>> placesData = [
     {
       'title': 'Parque Central',
@@ -44,7 +43,7 @@ class _PlacesState extends State<Places> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  showCommunity = true; // Mostrar comunidad
+                  showCommunity = true; 
                 });
               },
               child: Text(
@@ -59,7 +58,7 @@ class _PlacesState extends State<Places> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  showCommunity = false; // Mostrar lugares
+                  showCommunity = false;
                 });
               },
               child: Text(
@@ -102,32 +101,27 @@ class _PlacesState extends State<Places> {
             label: '',
           ),
         ],
-        currentIndex: 4, // Índice de la pestaña activa
+        currentIndex: 4, 
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black54,
         iconSize: 30,
         onTap: (index) {
-          // Navegación en la barra inferior
           if (index == 0) {
             Navigator.pushNamed(context, '/home');
           } else if (index == 1) {
-            // Acción para la búsqueda
           } else if (index == 2) {
-            // Acción para agregar publicación
           } else if (index == 3) {
             Navigator.pushNamed(context, '/people');
           } else if (index == 4) {
-            Navigator.pushNamed(context, '/places'); // Acción para la vista de Lugares
+            Navigator.pushNamed(context, '/places'); 
           }
         },
       ),
     );
   }
-
-  // Vista de Comunidad
   Widget _buildCommunityView() {
     return ListView.builder(
-      itemCount: 2, // Número de publicaciones de comunidad
+      itemCount: 2, 
       itemBuilder: (context, index) {
         return PostCard(
           title: 'Jay B',
@@ -138,11 +132,9 @@ class _PlacesState extends State<Places> {
       },
     );
   }
-
-  // Vista de Lugares
   Widget _buildPlacesView() {
     return ListView.builder(
-      itemCount: placesData.length, // Número de lugares en la lista
+      itemCount: placesData.length, 
       itemBuilder: (context, index) {
         final place = placesData[index];
         return PostCard(
@@ -155,8 +147,6 @@ class _PlacesState extends State<Places> {
     );
   }
 }
-
-// Tarjeta de publicación
 class PostCard extends StatelessWidget {
   final String title;
   final String subtitle;

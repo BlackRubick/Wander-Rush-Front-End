@@ -22,7 +22,7 @@ class PeopleView extends StatelessWidget {
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.all(10.0),
                 suffixIcon: Icon(Icons.search, color: Colors.black),
-                hintText: '', // Texto de sugerencia
+                hintText: '', 
               ),
             ),
           ),
@@ -30,20 +30,19 @@ class PeopleView extends StatelessWidget {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
-        itemCount: 10, // Cambia este número según la cantidad de elementos que quieras mostrar
+        itemCount: 10, 
         itemBuilder: (context, index) {
           return Card(
             elevation: 2,
             margin: const EdgeInsets.symmetric(vertical: 8.0),
             child: ListTile(
               leading: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/avatar.png'), // Imagen del avatar
-                radius: 30, // Tamaño del avatar
+                backgroundImage: AssetImage('assets/images/avatar.png'), 
+                radius: 30, 
               ),
-              title: Text('Seol'), // Nombre de la persona
-              subtitle: Text('Hola'), // Mensaje o descripción
+              title: Text('Seol'),
+              subtitle: Text('Hola'), 
               onTap: () {
-                // Navegar a la vista de ChatFriend al pulsar la tarjeta
                 Navigator.pushNamed(context, '/chatFriend');
               },
             ),
@@ -63,11 +62,11 @@ class PeopleView extends StatelessWidget {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_box), // Cambiado a ícono de "más"
+            icon: Icon(Icons.add_box),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people), // Ícono de "people"
+            icon: Icon(Icons.people), 
             label: '',
           ),
           BottomNavigationBarItem(
@@ -78,24 +77,21 @@ class PeopleView extends StatelessWidget {
             label: '',
           ),
         ],
-        currentIndex: 3, // Cambia este índice según la pestaña activa
+        currentIndex: 3, 
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black54,
         iconSize: 30,
         onTap: (index) {
-          // Manejar la navegación de la barra inferior
           switch (index) {
             case 0:
-              Navigator.pushNamed(context, '/home'); // Navegar a la vista de inicio
+              Navigator.pushNamed(context, '/home'); 
               break;
             case 1:
-              Navigator.pushNamed(context, '/search'); // Navegar a la vista de búsqueda
+              Navigator.pushNamed(context, '/search');
               break;
             case 2:
-              // Aquí puedes manejar la acción para crear un nuevo mensaje
               break;
             case 3:
-              // Ya estás en la vista de PeopleView
               break;
           }
         },
@@ -105,18 +101,16 @@ class PeopleView extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () {
-              // Acción para abrir el chat o enviar un mensaje
             },
             backgroundColor: Color(0xFFE88A73),
-            child: Icon(Icons.chat_bubble, color: Colors.black), // Ícono de burbuja de chat
+            child: Icon(Icons.chat_bubble, color: Colors.black), 
           ),
-          SizedBox(height: 16), // Espacio entre los botones
+          SizedBox(height: 16),
           FloatingActionButton(
             onPressed: () {
-              // Acción para enviar un nuevo mensaje
             },
             backgroundColor: Color(0xFFE88A73),
-            child: Icon(Icons.message, color: Colors.black), // Ícono de mensaje nuevo
+            child: Icon(Icons.message, color: Colors.black), 
           ),
         ],
       ),

@@ -9,31 +9,31 @@ class ChatFriend extends StatefulWidget {
 }
 
 class _ChatFriendState extends State<ChatFriend> {
-  final List<Map<String, String>> messages = []; // Lista de mensajes
+  final List<Map<String, String>> messages = []; 
   final TextEditingController _controller = TextEditingController();
-  bool _showEmojiPicker = false; // Estado para el selector de emojis
+  bool _showEmojiPicker = false;
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
       setState(() {
         messages.add({
           'text': _controller.text,
-          'sender': 'Seol', // Puedes modificar esto según el remitente
-          'image': 'assets/images/avatar.png', // Ruta de la imagen de perfil
+          'sender': 'Seol',
+          'image': 'assets/images/avatar.png', 
         });
-        _controller.clear(); // Limpiar el campo de texto
+        _controller.clear(); 
       });
     }
   }
 
   void _toggleEmojiPicker() {
     setState(() {
-      _showEmojiPicker = !_showEmojiPicker; // Alternar el estado del selector de emojis
+      _showEmojiPicker = !_showEmojiPicker; 
     });
   }
 
   void _onEmojiSelected(Emoji emoji) {
-    _controller.text += emoji.emoji; // Agregar emoji al campo de texto
+    _controller.text += emoji.emoji; 
   }
 
   @override
@@ -43,23 +43,23 @@ class _ChatFriendState extends State<ChatFriend> {
         title: Row(
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage('assets/images/avatar.png'), // Ruta de la imagen de perfil
-              radius: 25, // Aumentar el tamaño del avatar
+              backgroundImage: AssetImage('assets/images/avatar.png'),
+              radius: 25, 
             ),
-            const SizedBox(width: 18), // Aumentar el espacio entre imagen y texto
+            const SizedBox(width: 18), 
             const Text(
-              'Seol', // Nombre del usuario
+              'Seol',
               style: TextStyle(
-                fontSize: 24, // Aumentar el tamaño del texto
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.white
               ),
             ),
           ],
         ),
-        backgroundColor: const Color(0xFF6F4C3E), // Color del AppBar
-        elevation: 0, // Eliminar sombra
-        automaticallyImplyLeading: false, // Eliminar icono de flecha de regresar
+        backgroundColor: const Color(0xFF6F4C3E), 
+        elevation: 0,
+        automaticallyImplyLeading: false, 
       ),
       body: Column(
         children: [
@@ -71,21 +71,20 @@ class _ChatFriendState extends State<ChatFriend> {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 4.0),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start, // Alineación de la imagen y el texto
+                    crossAxisAlignment: CrossAxisAlignment.start, 
                     children: [
-                      // Imagen de perfil
                       CircleAvatar(
                         backgroundImage: AssetImage(messages[index]['image']!),
-                        radius: 20, // Tamaño del avatar
+                        radius: 20, 
                       ),
-                      const SizedBox(width: 10), // Espacio entre imagen y texto
+                      const SizedBox(width: 10), 
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: messages[index]['sender'] == 'Seol'
-                                ? Colors.grey[300] // Color para mensajes de Seol
-                                : Color(0xFFE88A73), // Color para mensajes del usuario
+                                ? Colors.grey[300] 
+                                : Color(0xFFE88A73), 
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Text(
@@ -100,12 +99,12 @@ class _ChatFriendState extends State<ChatFriend> {
               },
             ),
           ),
-          if (_showEmojiPicker) // Mostrar el selector de emojis si está activo
+          if (_showEmojiPicker) 
             SizedBox(
-              height: 250, // Altura del selector de emojis
+              height: 250, 
               child: EmojiPicker(
                 onEmojiSelected: (Category? category, Emoji emoji) {
-                  _onEmojiSelected(emoji); // Manejar la selección de emojis
+                  _onEmojiSelected(emoji); 
                 },
               ),
             ),
@@ -113,10 +112,9 @@ class _ChatFriendState extends State<ChatFriend> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                // Icono de emojis
                 IconButton(
                   icon: const Icon(Icons.emoji_emotions_outlined),
-                  onPressed: _toggleEmojiPicker, // Alternar el selector de emojis
+                  onPressed: _toggleEmojiPicker, 
                 ),
                 Expanded(
                   child: TextField(
@@ -128,18 +126,17 @@ class _ChatFriendState extends State<ChatFriend> {
                         borderSide: BorderSide.none,
                       ),
                       filled: true,
-                      fillColor: const Color(0xFFDAD3CC), // Color de fondo del campo de texto
+                      fillColor: const Color(0xFFDAD3CC), 
                     ),
                   ),
                 ),
-                // Botón de enviar con fondo circular
                 Container(
                   decoration: BoxDecoration(
-                    color: Color(0xFFE88A73), // Color del fondo circular
+                    color: Color(0xFFE88A73), 
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.send, color: Colors.white), // Ícono de enviar en blanco
+                    icon: const Icon(Icons.send, color: Colors.white), 
                     onPressed: _sendMessage,
                   ),
                 ),

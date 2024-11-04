@@ -10,7 +10,6 @@ class HomeBefore extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Círculos decorativos
           Positioned(
             left: -30,
             top: -60,
@@ -59,7 +58,6 @@ class HomeBefore extends StatelessWidget {
               ),
             ),
           ),
-          // Contenido centrado
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
