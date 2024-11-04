@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Clase principal del perfil
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
@@ -60,11 +61,19 @@ class Profile extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => EditProfile()),
+                        );
                       },
                     ),
                     IconButton(
                       icon: Icon(Icons.settings),
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SettingsScreen()),
+                        );
                       },
                     ),
                   ],
@@ -75,7 +84,7 @@ class Profile extends StatelessWidget {
           Divider(),
           Expanded(
             child: ListView.builder(
-              itemCount: 2, 
+              itemCount: 2,
               itemBuilder: (context, index) {
                 return PostCard();
               },
@@ -111,7 +120,7 @@ class Profile extends StatelessWidget {
             label: '',
           ),
         ],
-        currentIndex: 4, 
+        currentIndex: 4,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black54,
         iconSize: 30,
@@ -123,7 +132,7 @@ class Profile extends StatelessWidget {
           } else if (index == 3) {
             Navigator.pushNamed(context, '/people');
           } else if (index == 4) {
-            Navigator.pushNamed(context, '/profile'); 
+            Navigator.pushNamed(context, '/profile');
           }
         },
       ),
@@ -131,7 +140,82 @@ class Profile extends StatelessWidget {
   }
 }
 
+// Clase para editar el perfil
+class EditProfile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Edit Profile'),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/images/profile.png'),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Text('Nombre:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            TextFormField(
+              initialValue: 'Seoul', // Valor inicial
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            Text('Gustos:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            TextFormField(
+              initialValue: 'Arte y Música', // Valor inicial
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Guarda los cambios y vuelve a la pantalla de perfil
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFEF9A9A),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: Text('Guardar'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Clase para la tarjeta de publicaciones (PostCard)
 class PostCard extends StatelessWidget {
+  const PostCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -158,6 +242,55 @@ class PostCard extends StatelessWidget {
                 Icon(Icons.send),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Pantalla de configuración
+class SettingsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Configuración'),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Editar perfil'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditProfile()),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.delete),
+            title: Text('Eliminar cuenta'),
+            onTap: () {
+              // Agregar funcionalidad para eliminar cuenta
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text('Términos y condiciones'),
+            onTap: () {
+              // Agregar funcionalidad para ver términos y condiciones
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Cerrar sesión'),
+            onTap: () {
+              // Agregar funcionalidad para cerrar sesión
+            },
           ),
         ],
       ),

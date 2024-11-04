@@ -9,7 +9,8 @@ import 'package:wanderrush/screens/historyscreen.dart';
 import 'package:wanderrush/screens/PeopleView.dart'; 
 import "package:wanderrush/Screens/profile.dart";
 import "package:wanderrush/Screens/places.dart";
-
+import "package:wanderrush/Screens/EditProfile.dart";
+import 'package:wanderrush/Screens/SettingsScreen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -36,6 +37,8 @@ class MyApp extends StatelessWidget {
         '/peopleview': (context) => const  PeopleView(),
         '/chatFriend': (context) => const  ChatFriend(),
         "/profle" : (context) => const Profile(),
+        "/editProfile" : (context) => const Editperfil(),
+        "/SettingsScreen": (context) => const SettingScreen(),
 
       },
     );
