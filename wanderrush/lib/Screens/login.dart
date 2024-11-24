@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _login() {
+    
+    Navigator.pushNamed(context, '/home');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +42,7 @@ class LoginPage extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Image.asset(
-                    'assets/images/avatar.png', 
+                    'assets/images/avatar.png',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -46,6 +59,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     TextField(
+                      controller: _emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
@@ -76,6 +90,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     TextField(
+                      controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -111,10 +126,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-
-                  },
+                  onPressed: _login, // Navega a /home al iniciar sesión
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(227, 141, 111, 1),
                     padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 16),
@@ -137,7 +149,7 @@ class LoginPage extends StatelessWidget {
                     const Text('¿No tienes una cuenta?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/register'); 
+                        Navigator.pushNamed(context, '/register');
                       },
                       child: const Text(
                         'Crear cuenta',

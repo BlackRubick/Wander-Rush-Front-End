@@ -13,7 +13,6 @@ class Editperfil extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-              // Add settings functionality here if needed
             },
           ),
         ],
@@ -45,7 +44,7 @@ class Editperfil extends StatelessWidget {
             SizedBox(height: 20),
             Text('Nombre:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             TextFormField(
-              initialValue: 'Seoul', // Default value
+              initialValue: 'Seoul', 
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
               ),
@@ -53,7 +52,7 @@ class Editperfil extends StatelessWidget {
             SizedBox(height: 20),
             Text('Gustos:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             TextFormField(
-              initialValue: 'Arte y Música', // Default value
+              initialValue: 'Arte y Música', 
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
               ),
@@ -62,7 +61,7 @@ class Editperfil extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Save changes and go back to the profile screen
+                    
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(

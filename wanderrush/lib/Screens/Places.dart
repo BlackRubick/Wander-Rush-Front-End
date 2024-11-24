@@ -9,25 +9,41 @@ class Places extends StatefulWidget {
 
 class _PlacesState extends State<Places> {
   bool showCommunity = true;
+  int _currentIndex = 0; // Índice inicial del BottomNavigationBar
 
   final List<Map<String, dynamic>> placesData = [
     {
       'title': 'Parque Central',
       'subtitle': 'Un lugar tranquilo para pasear y relajarse.',
       'image': 'assets/images/lugar2.png',
-      'likes': 150,
+      'rating': 4.5,
     },
     {
       'title': 'Museo de Arte',
       'subtitle': 'Explora el arte local e internacional.',
       'image': 'assets/images/lugar1.png',
-      'likes': 85,
+      'rating': 4.0,
     },
     {
       'title': 'Café Sol y Luna',
       'subtitle': 'Disfruta de un café en un ambiente acogedor.',
       'image': 'assets/images/lugar3.jpg',
-      'likes': 26,
+      'rating': 3.8,
+    },
+  ];
+
+  final List<Map<String, dynamic>> communityData = [
+    {
+      'title': 'Jay B',
+      'subtitle': 'Un agradable lugar para compartir ideas.',
+      'image': 'assets/images/post.png',
+      'rating': 4.2,
+    },
+    {
+      'title': 'Anna Smith',
+      'subtitle': 'Disfruta del arte en compañía.',
+      'image': 'assets/images/profile.png',
+      'rating': 4.7,
     },
   ];
 
@@ -43,7 +59,7 @@ class _PlacesState extends State<Places> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  showCommunity = true; 
+                  showCommunity = true;
                 });
               },
               child: Text(
@@ -75,7 +91,7 @@ class _PlacesState extends State<Places> {
       body: showCommunity ? _buildCommunityView() : _buildPlacesView(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFFF5F3ED),
+        backgroundColor: Color(0xFFDAD3CC),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -101,65 +117,90 @@ class _PlacesState extends State<Places> {
             label: '',
           ),
         ],
-        currentIndex: 4, 
+        currentIndex: _currentIndex,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.black54,
         iconSize: 30,
         onTap: (index) {
-          if (index == 0) {
-            Navigator.pushNamed(context, '/home');
-          } else if (index == 1) {
-          } else if (index == 2) {
-          } else if (index == 3) {
-            Navigator.pushNamed(context, '/people');
-          } else if (index == 4) {
-            Navigator.pushNamed(context, '/places'); 
+          setState(() {
+            _currentIndex = index;
+          });
+
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/home');
+              break;
+            case 1:
+              Navigator.pushNamed(context, '/Places');
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/post');
+              break;
+            case 3:
+              Navigator.pushNamed(context, '/peopleview');
+              break;
+            case 4:
+              Navigator.pushNamed(context, '/profile');
+              break;
           }
         },
       ),
     );
   }
+
   Widget _buildCommunityView() {
     return ListView.builder(
-      itemCount: 2, 
+      itemCount: communityData.length,
       itemBuilder: (context, index) {
-        return PostCard(
-          title: 'Jay B',
-          subtitle: 'Un agradable lugar @b',
-          imageAsset: 'assets/images/post.png',
-          likes: 100,
+        final item = communityData[index];
+        return CardWithRating(
+          title: item['title']!,
+          subtitle: item['subtitle']!,
+          imageAsset: item['image']!,
+          rating: item['rating']!,
         );
       },
     );
   }
+
   Widget _buildPlacesView() {
     return ListView.builder(
-      itemCount: placesData.length, 
+      itemCount: placesData.length,
       itemBuilder: (context, index) {
         final place = placesData[index];
-        return PostCard(
-          title: place['title']!,
-          subtitle: place['subtitle']!,
-          imageAsset: place['image']!,
-          likes: place['likes']!,
+        return GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              '/vistalugaresapp',
+              arguments: place,
+            );
+          },
+          child: CardWithRating(
+            title: place['title']!,
+            subtitle: place['subtitle']!,
+            imageAsset: place['image']!,
+            rating: place['rating']!,
+          ),
         );
       },
     );
   }
 }
-class PostCard extends StatelessWidget {
+
+class CardWithRating extends StatelessWidget {
   final String title;
   final String subtitle;
   final String imageAsset;
-  final int likes;
+  final double rating;
 
-  const PostCard({
-    Key? key,
+  const CardWithRating({
+    super.key,
     required this.title,
     required this.subtitle,
     required this.imageAsset,
-    required this.likes,
-  }) : super(key: key);
+    required this.rating,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -180,11 +221,9 @@ class PostCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Icon(Icons.favorite_border),
+                Icon(Icons.star, color: Colors.amber),
                 SizedBox(width: 4),
-                Text('$likes'),
-                SizedBox(width: 16),
-                Icon(Icons.comment_outlined),
+                Text('$rating'),
               ],
             ),
           ),

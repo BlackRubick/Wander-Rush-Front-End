@@ -3,7 +3,6 @@ import 'package:wanderrush/Screens/profile.dart';
 import 'package:wanderrush/screens/PeopleView.dart';
 import 'package:wanderrush/screens/Places.dart';
 
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -21,12 +20,12 @@ class _HomeState extends State<Home> {
     if (index == 0) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Places()), 
+        MaterialPageRoute(builder: (context) => Places()),
       );
     } else if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Home()), 
+        MaterialPageRoute(builder: (context) => Home()),
       );
     } else if (index == 3) {
       Navigator.push(
@@ -101,7 +100,7 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/chatbot'); 
+          Navigator.pushNamed(context, '/chatbot');
         },
         backgroundColor: Color(0xFFE88A73),
         child: Icon(Icons.chat_bubble, color: Colors.black),
@@ -109,13 +108,16 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Color(0xFFDAD3CC),
-        items: const [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: _selectedIndex == 1 ? Colors.black : Colors.black54,
+            ),
             label: '',
           ),
           BottomNavigationBarItem(
@@ -128,7 +130,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/avatar.png'), 
+              backgroundImage: AssetImage('assets/images/avatar.png'),
               radius: 20,
             ),
             label: '',
@@ -145,8 +147,7 @@ class _HomeState extends State<Home> {
 
   Widget _buildCategoryButton(String text) {
     return ElevatedButton(
-      onPressed: () {
-      },
+      onPressed: () {},
       style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xFFF9E5B8),
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

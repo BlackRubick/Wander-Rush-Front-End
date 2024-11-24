@@ -127,9 +127,10 @@ class Profile extends StatelessWidget {
           if (index == 0) {
             Navigator.pushNamed(context, '/home');
           } else if (index == 1) {
+            Navigator.pushNamed(context, '/Places');
           } else if (index == 2) {
           } else if (index == 3) {
-            Navigator.pushNamed(context, '/people');
+            Navigator.pushNamed(context, '/peopleview');
           } else if (index == 4) {
             Navigator.pushNamed(context, '/profile');
           }
@@ -140,6 +141,8 @@ class Profile extends StatelessWidget {
 }
 
 class EditProfile extends StatelessWidget {
+  const EditProfile({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -246,6 +249,8 @@ class PostCard extends StatelessWidget {
 }
 
 class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

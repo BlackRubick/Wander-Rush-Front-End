@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PeopleView extends StatelessWidget {
-  const PeopleView({super.key});
+class AddPersonView extends StatelessWidget {
+  const AddPersonView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,37 +42,18 @@ class PeopleView extends StatelessWidget {
               ),
               title: Text('Seol'),
               subtitle: Text('Hola'), 
+              trailing: ElevatedButton(
+                onPressed: () {
+                  // Acción de seguir
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                ),
+                child: Text('Seguir', style: TextStyle(color: Colors.white)),
+              ),
               onTap: () {
                 Navigator.pushNamed(context, '/chatFriend');
               },
-              trailing: PopupMenuButton<String>(
-                icon: Icon(Icons.more_vert),
-                onSelected: (value) {
-                  if (value == 'Eliminar chat') {
-                    print('Eliminar chat');
-                  } else if (value == 'Ver perfil') {
-                    Navigator.pushNamed(context, '/profile');
-                  } else if (value == 'Dejar de seguir') {
-                    print('Dejar de seguir');
-                  }
-                },
-                itemBuilder: (BuildContext context) {
-                  return [
-                    PopupMenuItem<String>(
-                      value: 'Eliminar chat',
-                      child: Text('Eliminar chat'),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'Ver perfil',
-                      child: Text('Ver perfil'),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'Dejar de seguir',
-                      child: Text('Dejar de seguir'),
-                    ),
-                  ];
-                },
-              ),
             ),
           );
         },
@@ -118,7 +99,7 @@ class PeopleView extends StatelessWidget {
               Navigator.pushNamed(context, '/Places');
               break;
             case 2:
-            Navigator.pushNamed(context, '/PostScreen');
+              Navigator.pushNamed(context, '/addPerson');
               break;
             case 3:
               break;
@@ -127,19 +108,7 @@ class PeopleView extends StatelessWidget {
               break;
           }
         },
-      ),
-      floatingActionButton: Stack(
-        alignment: Alignment.bottomRight,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-                Navigator.pushNamed(context, '/addPerson');
-            },
-            backgroundColor: Color(0xFFE88A73),
-            child: Icon(Icons.person_add, color: Colors.black), // Cambié a "person_add"
-          ),
-        ],
-      ),
+      )
     );
   }
 }

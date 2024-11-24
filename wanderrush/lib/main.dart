@@ -11,6 +11,11 @@ import "package:wanderrush/Screens/profile.dart";
 import "package:wanderrush/Screens/places.dart";
 import "package:wanderrush/Screens/EditProfile.dart";
 import 'package:wanderrush/Screens/SettingsScreen.dart';
+import "package:wanderrush/Screens/AddPersonView.dart";
+import 'package:wanderrush/Screens/PostScreen.dart';
+import 'package:wanderrush/Screens/VistaLugaresApp.dart';
+import 'package:wanderrush/Screens/VistasResenas.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -30,16 +35,19 @@ class MyApp extends StatelessWidget {
         '/': (context) => const HomeBefore(),
         '/login': (context) => const LoginPage(), 
         '/register': (context) => const RegisterScreen(),
-        "/places" : (context) => const Places(),
-        '/home': (context) => const Home(), 
+        "/home" : (context) => const Places(),
+        '/Places': (context) => const Home(), 
         '/chatbot': (context) => const ChatbotScreen(),
         '/history': (context) => const HistoryScreen(),
         '/peopleview': (context) => const  PeopleView(),
         '/chatFriend': (context) => const  ChatFriend(),
-        "/profle" : (context) => const Profile(),
+        "/profile" : (context) => const Profile(),
         "/editProfile" : (context) => const Editperfil(),
         "/SettingsScreen": (context) => const SettingScreen(),
-
+        '/addPerson': (context) => AddPersonView(), 
+        "/PostScreen" : (context) => const PostScreen(), 
+        '/vistalugaresapp': (context) => VistaLugaresApp(),
+        '/VistaResenas': (context) => VistaResenas(), // Define esta ruta
       },
     );
   }

@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter/services.dart';
 import 'package:wanderrush/screens/historyscreen.dart';
 
 class ChatbotScreen extends StatefulWidget {
@@ -15,37 +17,31 @@ class ChatbotScreen extends StatefulWidget {
 class _ChatbotScreenState extends State<ChatbotScreen> {
   List<String> _messages = [];
   final TextEditingController _controller = TextEditingController();
-  bool _isConnected = false; //estado de la conexión
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
+  String _speechText = '';
+  late FlutterTts _flutterTts;
+  late List<String> _bannedWords = [];
 
   @override
   void initState() {
     super.initState();
+    _speech = stt.SpeechToText();
+    _flutterTts = FlutterTts();
     _loadHistory();
-    _checkInternetConnection(); 
-    _monitorConnectionChanges(); 
+    _loadBannedWords();
   }
 
-  Future<void> _checkInternetConnection() async {
-    bool hasConnection = await InternetConnectionChecker().hasConnection;
-    _updateConnectionStatus(hasConnection);
-  }
-
-  
-  void _monitorConnectionChanges() {
-    InternetConnectionChecker().onStatusChange.listen((status) {
-      final hasInternet = status == InternetConnectionStatus.connected;
-      _updateConnectionStatus(hasInternet);
-    });
-  }
-
-  
-  void _updateConnectionStatus(bool isConnected) {
+  // aqui metemos el json con als palabrotas
+  Future<void> _loadBannedWords() async {
+    final String response =
+        await rootBundle.loadString('assets/images/banned_words.json');
+    final data = jsonDecode(response);
     setState(() {
-      _isConnected = isConnected;
+      _bannedWords = List<String>.from(data['bannedWords']);
     });
   }
 
-  
   Future<void> _loadHistory() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -53,52 +49,76 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     });
   }
 
-  
   Future<void> _saveHistory() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('chat_history', _messages);
   }
 
-  
+  // esta es la funcion pa censurar los mensajes 
+  String _censorBadWords(String message) {
+    for (String word in _bannedWords) {
+      //aqui valida si son mayusculas o ne
+      if (message.toLowerCase().contains(word)) {
+        message = message.replaceAll(RegExp(word, caseSensitive: false), '****');
+      }
+    }
+    return message;
+  }
+
+  // manda mnensje al chatbot y obtenemos la respuesta
   Future<void> _sendMessage() async {
     if (_controller.text.isNotEmpty) {
       String userMessage = _controller.text;
+      String censoredMessage = _censorBadWords(userMessage);
 
-      setState(() {
-        _messages.add('Usuario: $userMessage');
-      });
+      // si tiene palabrotas lo censura 
+      if (censoredMessage != userMessage) {
+        setState(() {
+          _messages.add('Usuario: (mensaje censurado)');
+        });
+      } else {
+        setState(() {
+          _messages.add('Usuario: $userMessage');
+        });
 
-      _controller.clear();
+        _controller.clear();
 
-      try {
-        String history = _messages.join('\n');
+        try {
+          String history = _messages.join('\n');
 
-        final response = await http.post(
-          Uri.parse('http://192.168.96.138:5001/ask'),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({'question': userMessage, 'history': history}),
-        );
+          final response = await http.post(
+            Uri.parse('http://10.14.0.83:5001/ask'),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({'question': userMessage, 'history': history}),
+          );
 
-        if (response.statusCode == 200) {
-          final responseData = jsonDecode(response.body);
+          if (response.statusCode == 200) {
+            final responseData = jsonDecode(response.body);
+            String botMessage = responseData['answer'];
+            String censoredBotMessage = _censorBadWords(botMessage);
+
+            setState(() {
+              _messages.add('Bot: $censoredBotMessage');
+            });
+
+            await _flutterTts.speak(censoredBotMessage);
+          } else {
+            setState(() {
+              _messages.add('Error: No se pudo conectar con el servidor.');
+            });
+          }
+        } catch (e) {
           setState(() {
-            _messages.add('Bot: ${responseData['answer']}');
-          });
-        } else {
-          setState(() {
-            _messages.add('Error: No se pudo conectar con el servidor.');
+            _messages.add('Error: $e');
           });
         }
-      } catch (e) {
-        setState(() {
-          _messages.add('Error: $e');
-        });
-      }
 
-      _saveHistory();
+        _saveHistory();
+      }
     }
   }
 
+  // Mostrar historial de chat
   void _viewHistory() {
     Navigator.push(
       context,
@@ -115,104 +135,107 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     _saveHistory();
   }
 
+  Future<void> _startListening() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) => setState(() => _isListening = val == 'listening'),
+        onError: (val) => setState(() => _isListening = false),
+      );
+      if (available) {
+        _speech.listen(
+          onResult: (val) => setState(() {
+            _speechText = val.recognizedWords;
+            _controller.text = _speechText;
+          }),
+        );
+      }
+    } else {
+      _speech.stop();
+      setState(() {
+        _isListening = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade200,
+        backgroundColor: const Color.fromARGB(255, 231, 210, 175),
         title: const Text(
           'TOKKI CHAT',
           style: TextStyle(
-            color: Colors.black,
             fontWeight: FontWeight.bold,
+            fontSize: 24,
           ),
         ),
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        titleSpacing: 40,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.history),
-            color: Colors.black,
-            onPressed: _viewHistory,
-            tooltip: 'Ver Historial',
-          ),
-          IconButton(
-            icon: const Icon(Icons.clear),
-            color: Colors.black,
-            onPressed: _clearChat,
-            tooltip: 'Limpiar Conversación',
-          ),
-        ],
+        elevation: 8,
+        centerTitle: true,
       ),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
               itemCount: _messages.length,
               itemBuilder: (context, index) {
+                final message = _messages[index];
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Row(
-                    mainAxisAlignment: index % 2 == 0
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.end,
-                    children: [
-                      if (index % 2 == 0)
-                        const CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/perro.png'),
-                          radius: 20,
-                        ),
-                      const SizedBox(width: 10),
-                      Flexible(
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(_messages[index]),
+                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  child: Align(
+                    alignment: message.startsWith('Usuario:')
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: message.startsWith('Usuario:') 
+                            ? Colors.blue.shade400 
+                            : Colors.green.shade400,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        message,
+                        style: const TextStyle(
+                          color: Colors.black,
                         ),
                       ),
-                      if (index % 2 != 0) const SizedBox(width: 10),
-                      if (index % 2 != 0)
-                        const CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/bot.jpeg'),
-                          radius: 20,
-                        ),
-                    ],
+                    ),
                   ),
                 );
               },
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
+                IconButton(
+                  icon: Icon(
+                    _isListening ? Icons.mic : Icons.mic_none,
+                    color: _isListening ? Colors.black : Colors.black,
+                  ),
+                  onPressed: _startListening,
+                ),
                 Expanded(
                   child: TextField(
                     controller: _controller,
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      hintText: 'Mensaje',
-                      contentPadding: const EdgeInsets.all(10),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey.shade800,
+                      hintText: 'Escribe tu mensaje...',
                       hintStyle: const TextStyle(color: Colors.white),
+                      filled: true,
+                      fillColor: Colors.grey.shade700,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 10),
-                CircleAvatar(
-                  backgroundColor: Colors.orange.shade300,
-                  child: IconButton(
-                    icon: const Icon(Icons.send),
-                    color: Colors.white,
-                    onPressed: _isConnected ? _sendMessage : null,
-                  ),
+                IconButton(
+                  icon: const Icon(Icons.send, color: Colors.green),
+                  onPressed: _sendMessage,
                 ),
               ],
             ),
