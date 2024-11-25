@@ -1,0 +1,27 @@
+{
+  "bannedWords": [
+    "puto", "put0", "pto", "pt0",
+    "puta", "put@", "pta", "pt@", 
+    "cabron", "c@bron", "kbron", "kbrón",
+    "idiota", "idi0ta", "1diota",
+    "estupido", "estúpido", "estup1do", "estup1d0", "3stupido", 
+    "mierda", "mi3rda", "mrd", "m!erda",
+    "cabrón", "c4bron", "cabro", "cabr0n",
+    "imbecil", "imbécil", "1mbecil", "imb3cil", "imb3c1l",
+    "maldito", "maldit@", "m4ldito", "maldit0",
+    "tarado", "t4rado", "tarad0", "tar@do",
+    "hijo de puta", "hijo de put@", "hijo d pta", "hijo_d_pt@", "h1jo_de_puta",
+    "zorra", "zorr@", "z0rr@", "zrr@",
+    "perra", "perr@", "p3rr@", "p3rra",
+    "pendejo", "pendej@", "p3ndej@", "p3ndejo", "pndj@", "pndj0",
+    "jodido", "jodid@", "jod1d0", "jod1do",
+    "malparido", "malparid@", "m4lparido", "malpar1do",
+    "culero", "culer@", "cul3ro", "c0lero",
+    "baboso", "babos@", "bab0s@", "babos0",
+    "gilipollas", "gil1pollas", "g1lipollas", "gilip0llas",
+    "chinga tu madre", "ch1nga_tu_madre", "chinga_tu_m@dre", "ch1ng@_tu_madre", 
+    "ch1ngatu_madre", "chinga_tumadre", "ch1ng@_tu_m@dre", "ctm", "CTM", "sptm", "p3nd3j0", "verga", 
+    "berga", "vale verga","vale_verga", "vrg",  "chinga_su_puta_madre", "cspm", "menso", "tontito",
+    "cara de verga", "cara_de_verga", "estupido", "baboso", "imb", "maldita", "prostituta", "pinche perra"
+  ]
+}
