@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:wanderrush/Screens/PerfilLugar.dart';
 
 class EditLugar extends StatefulWidget {
+  const EditLugar({super.key});
+
   @override
   _EditLugarState createState() => _EditLugarState();
 }

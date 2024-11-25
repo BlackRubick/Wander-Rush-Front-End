@@ -47,7 +47,7 @@ class AddPersonView extends StatelessWidget {
                   // Acción de seguir
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
                 ),
                 child: Text('Seguir', style: TextStyle(color: Colors.white)),
               ),

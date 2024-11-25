@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class VistaLugaresApp extends StatelessWidget {
+  const VistaLugaresApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

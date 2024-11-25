@@ -6,6 +6,8 @@ import 'package:wanderrush/Screens/EditLugar.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Perfillugar extends StatefulWidget {
+  const Perfillugar({super.key});
+
   @override
   _PerfillugarState createState() => _PerfillugarState();
 }
@@ -61,7 +63,7 @@ class _PerfillugarState extends State<Perfillugar> with SingleTickerProviderStat
 
 
             // Contenido de las pestañas
-            Container(
+            SizedBox(
               height: 1000, // Ajusta según sea necesario
               child: TabBarView(
                 controller: _tabController,
