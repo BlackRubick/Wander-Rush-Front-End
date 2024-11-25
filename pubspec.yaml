@@ -1,0 +1,49 @@
+name: wanderrush
+description: "A new Flutter project."
+
+publish_to: 'none' 
+
+version: 1.0.0+1 #1.0.1+4
+
+environment:
+  sdk: ^3.5.2
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: any
+  shared_preferences: ^2.0.13
+  internet_connection_checker: ^1.0.0
+  cupertino_icons: ^1.0.8
+  emoji_picker_flutter: ^2.0.0 
+  speech_to_text: ^7.0.0
+  flutter_tts: ^4.2.0
+  url_launcher: ^6.3.1
+  image_picker: ^0.8.7+4
+  flutter_rating_bar: ^4.0.0
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - assets/images/
+    - assets/images/banned_words.json
+  uses-material-design: true
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+        - asset: assets/fonts/Poppins-Italic.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
