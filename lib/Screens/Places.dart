@@ -9,7 +9,6 @@ class Places extends StatefulWidget {
 
 class _PlacesState extends State<Places> {
   bool showCommunity = true;
-  int _currentIndex = 0; // Índice inicial del BottomNavigationBar
 
   final List<Map<String, dynamic>> placesData = [
     {
@@ -89,62 +88,6 @@ class _PlacesState extends State<Places> {
         ),
       ),
       body: showCommunity ? _buildCommunityView() : _buildPlacesView(),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFFDAD3CC),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_box_outlined),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: CircleAvatar(
-              radius: 12,
-              backgroundImage: AssetImage('assets/images/post.png'),
-            ),
-            label: '',
-          ),
-        ],
-        currentIndex: _currentIndex,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black54,
-        iconSize: 30,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, '/home');
-              break;
-            case 1:
-              Navigator.pushNamed(context, '/Places');
-              break;
-            case 2:
-              Navigator.pushNamed(context, '/post');
-              break;
-            case 3:
-              Navigator.pushNamed(context, '/peopleview');
-              break;
-            case 4:
-              Navigator.pushNamed(context, '/profile');
-              break;
-          }
-        },
-      ),
     );
   }
 

@@ -15,13 +15,11 @@ class Perfillugar extends StatefulWidget {
 class _PerfillugarState extends State<Perfillugar> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   Color colorn = Color(0xFFF6F7F2);
-  double _rating = 0.0;
 
 
   @override
   void initState() {
     super.initState();
-    // Inicializando el TabController con 2 pestañas
     _tabController = TabController(length: 2, vsync: this);
   }
 
@@ -376,7 +374,6 @@ class _PerfillugarState extends State<Perfillugar> with SingleTickerProviderStat
                   ),
                   onRatingUpdate: (rating) {
                     setState(() {
-                      _rating = rating;
                     });
                   },
                 ),

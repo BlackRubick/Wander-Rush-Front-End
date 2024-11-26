@@ -11,11 +11,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
     });
     if (index == 0) {
       Navigator.push(
@@ -104,43 +102,6 @@ class _HomeState extends State<Home> {
         },
         backgroundColor: Color(0xFFE88A73),
         child: Icon(Icons.chat_bubble, color: Colors.black),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFFDAD3CC),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              color: _selectedIndex == 1 ? Colors.black : Colors.black54,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_box),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/avatar.png'),
-              radius: 20,
-            ),
-            label: '',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black54,
-        iconSize: 30,
-        onTap: _onItemTapped,
       ),
     );
   }

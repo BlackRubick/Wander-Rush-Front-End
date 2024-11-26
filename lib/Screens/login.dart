@@ -12,7 +12,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   void _login() {
-    
     Navigator.pushNamed(context, '/home');
   }
 
@@ -47,16 +46,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                // Campo de Correo Electrónico
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Correo electrónico:',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
+                    const Text('Correo electrónico:', style: TextStyle(fontSize: 16)),
                     const SizedBox(height: 8),
                     TextField(
                       controller: _emailController,
@@ -65,29 +58,15 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(30.0),
                           borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
-                        ),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 24),
-                // Campo de Contraseña
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Contraseña:',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
+                    const Text('Contraseña:', style: TextStyle(fontSize: 16)),
                     const SizedBox(height: 8),
                     TextField(
                       controller: _passwordController,
@@ -97,36 +76,13 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(30.0),
                           borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                          borderSide: BorderSide(color: Color.fromRGBO(227, 141, 111, 1)),
-                        ),
-                        suffixIcon: const Icon(Icons.visibility),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 24),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Olvide la contraseña',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: _login, // Navega a /home al iniciar sesión
+                  onPressed: _login,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(227, 141, 111, 1),
                     padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 16),
@@ -136,10 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: const Text(
                     'Iniciar sesión',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -153,9 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: const Text(
                         'Crear cuenta',
-                        style: TextStyle(
-                          color: Color.fromRGBO(227, 141, 111, 1),
-                        ),
+                        style: TextStyle(color: Color.fromRGBO(227, 141, 111, 1)),
                       ),
                     ),
                   ],

@@ -15,7 +15,7 @@ class HomePromotor extends StatefulWidget {
 class _HomePromotorState extends State<HomePromotor> {
   Color colorn = Color(0xFFF6F7F2);
 
-  final int _currentIndex = 0; // Índice inicial del BottomNavigationBar
+// Índice inicial del BottomNavigationBar
   final ImagePicker _picker = ImagePicker();
 
   final List<Map<String, dynamic>> communityData = [

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:wanderrush/screens/login.dart';
-import 'package:wanderrush/Screens/HomePromotor.dart';
 
 class HomeBefore extends StatelessWidget {
   const HomeBefore({super.key});
@@ -83,12 +81,7 @@ class HomeBefore extends StatelessWidget {
                   const SizedBox(height: 80),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePromotor(),//
-                        ),
-                      );
+                      Navigator.pushNamed(context, '/login');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(227, 141, 111, 1),

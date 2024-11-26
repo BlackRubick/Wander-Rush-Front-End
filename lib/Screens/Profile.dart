@@ -91,51 +91,6 @@ class Profile extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFFDAD3CC),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_box_outlined),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: CircleAvatar(
-              radius: 12,
-              backgroundImage: AssetImage('assets/images/post.png'),
-            ),
-            label: '',
-          ),
-        ],
-        currentIndex: 4,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black54,
-        iconSize: 30,
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.pushNamed(context, '/home');
-          } else if (index == 1) {
-            Navigator.pushNamed(context, '/Places');
-          } else if (index == 2) {
-          } else if (index == 3) {
-            Navigator.pushNamed(context, '/peopleview');
-          } else if (index == 4) {
-            Navigator.pushNamed(context, '/profile');
-          }
-        },
-      ),
     );
   }
 }

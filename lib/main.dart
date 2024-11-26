@@ -1,21 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wanderrush/Screens/ChatFriend.dart';
 import 'package:wanderrush/screens/homebefore.dart';
 import 'package:wanderrush/screens/login.dart';
-import 'package:wanderrush/screens/register.dart'; 
-import 'package:wanderrush/screens/home.dart'; 
-import 'package:wanderrush/screens/chatbot.dart'; 
-import 'package:wanderrush/screens/historyscreen.dart'; 
-import 'package:wanderrush/screens/PeopleView.dart'; 
-import "package:wanderrush/Screens/profile.dart";
-import "package:wanderrush/Screens/places.dart";
-import "package:wanderrush/Screens/EditProfile.dart";
-import 'package:wanderrush/Screens/SettingsScreen.dart';
-import "package:wanderrush/Screens/AddPersonView.dart";
-import 'package:wanderrush/Screens/PostScreen.dart';
-import 'package:wanderrush/Screens/VistaLugaresApp.dart';
-import 'package:wanderrush/Screens/VistasResenas.dart';
-
+import 'package:wanderrush/screens/register.dart';
+import 'package:wanderrush/screens/MainNavigation.dart';
+import 'Screens/Places.dart';
+import 'Screens/AddPersonView.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -30,24 +19,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/', 
+      initialRoute: '/homebefore', // Pantalla inicial
       routes: {
-        '/': (context) => const HomeBefore(),
-        '/login': (context) => const LoginPage(), 
+        '/homebefore': (context) => const HomeBefore(),
+        '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterScreen(),
-        "/home" : (context) => const Places(),
-        '/Places': (context) => const Home(), 
-        '/chatbot': (context) => const ChatbotScreen(),
-        '/history': (context) => const HistoryScreen(),
-        '/peopleview': (context) => const  PeopleView(),
-        '/chatFriend': (context) => const  ChatFriend(),
-        "/profile" : (context) => const Profile(),
-        "/editProfile" : (context) => const Editperfil(),
-        "/SettingsScreen": (context) => const SettingScreen(),
-        '/addPerson': (context) => AddPersonView(), 
-        "/PostScreen" : (context) => const PostScreen(), 
-        '/vistalugaresapp': (context) => VistaLugaresApp(),
-        '/VistaResenas': (context) => VistaResenas(), // Define esta ruta
+        '/home': (context) => const MainNavigation(),
+        "/places" : (context) => const Places(),
+        "/addPerson": (context) => const AddPersonView(),
       },
     );
   }

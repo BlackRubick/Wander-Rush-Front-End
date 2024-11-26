@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wanderrush/Screens/profile.dart';
-import 'package:wanderrush/screens/PeopleView.dart';
-import 'package:wanderrush/screens/Places.dart';
+
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -11,35 +9,6 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-  int _selectedIndex = 2;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    if (index == 0) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Places()),
-      );
-    } else if (index == 1) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => PostScreen()),
-      );
-    } else if (index == 3) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => PeopleView()),
-      );
-    } else if (index == 4) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Profile()),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +32,7 @@ class _PostScreenState extends State<PostScreen> {
         actions: [
           TextButton(
             onPressed: () {
+              // Acción para publicar
             },
             style: TextButton.styleFrom(
               backgroundColor: Color(0xFFE88A73),
@@ -130,41 +100,6 @@ class _PostScreenState extends State<PostScreen> {
             ),
           ],
         ),
-      ),
-
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFFDAD3CC),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_box, size: 32),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/avatar.png'),
-              radius: 12,
-            ),
-            label: '',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black54,
-        iconSize: 30,
-        onTap: _onItemTapped,
       ),
     );
   }
