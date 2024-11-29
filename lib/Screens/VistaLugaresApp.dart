@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart'; // Importar url_launcher
+import 'package:wanderrush/Screens/VistasResenas.dart';
 
 class VistaLugaresApp extends StatelessWidget {
   const VistaLugaresApp({super.key});
@@ -16,7 +18,7 @@ class VistaLugaresApp extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Encabezado
-            _buildHeader(),
+            _buildHeader(context), // Pasa el contexto aquí
             Divider(color: Colors.grey, height: 1),
             // Información
             _buildInfoSection(),
@@ -32,7 +34,7 @@ class VistaLugaresApp extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Column(
       children: [
         // Imagen del lugar
@@ -86,7 +88,13 @@ class VistaLugaresApp extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Navegar a la vista de Reseñas
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => VistaResenas()),
+                      );
+                    },
                     child: Text(
                       'Reseñas',
                       style: TextStyle(
@@ -173,18 +181,13 @@ class VistaLugaresApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFFBE9E7),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ), child: null,
-                
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  
+                onPressed: () async {
+                  const url = 'https://maps.app.goo.gl/18mmT3dmyjtXDqLc9';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'No se pudo abrir la URL: $url';
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFFFCDD2),

@@ -7,7 +7,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Seol'),
+        title: Text('BlackRubick´s Profile '),
         centerTitle: true,
       ),
       body: Column(
@@ -18,11 +18,11 @@ class Profile extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: AssetImage('assets/images/profile.png'),
+                  backgroundImage: AssetImage('assets/images/yo.jpg'),
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Seol',
+                  'BlackRubick',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 4),
@@ -31,7 +31,7 @@ class Profile extends StatelessWidget {
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 Text(
-                  'Arte y Música',
+                  'Música , Cine , Aire Libre',
                   style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(height: 16),
@@ -40,14 +40,14 @@ class Profile extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        Text('0'),
+                        Text('4'),
                         Text('Seguidores'),
                       ],
                     ),
                     SizedBox(width: 32),
                     Column(
                       children: [
-                        Text('0'),
+                        Text('4'),
                         Text('Seguidos'),
                       ],
                     ),
@@ -132,7 +132,7 @@ class EditProfile extends StatelessWidget {
             SizedBox(height: 20),
             Text('Nombre:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             TextFormField(
-              initialValue: 'Seoul', 
+              initialValue: 'BlackRubick', 
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
               ),
@@ -178,13 +178,13 @@ class PostCard extends StatelessWidget {
         children: [
           ListTile(
             leading: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/profile.png'),
+              backgroundImage: AssetImage('assets/images/yo.jpg'),
             ),
-            title: Text('Jay B'),
-            subtitle: Text('Un agradable lugar @b'),
+            title: Text('BlackRubick Post'),
+            subtitle: Text('Vengan a cinepolis hoy tienen promocion '),
             trailing: Icon(Icons.more_vert),
           ),
-          Image.asset('assets/images/post.png'),
+          Image.asset('assets/images/promocion.png'),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

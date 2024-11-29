@@ -5,6 +5,11 @@ import 'package:wanderrush/screens/register.dart';
 import 'package:wanderrush/screens/MainNavigation.dart';
 import 'Screens/Places.dart';
 import 'Screens/AddPersonView.dart';
+import 'Screens/chatbot.dart';
+import 'Screens/PostScreen.dart';
+import 'Screens/VistaLugaresApp.dart';
+import 'Screens/VistasResenas.dart';
+import 'Screens/ChatFriend.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -27,6 +32,11 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const MainNavigation(),
         "/places" : (context) => const Places(),
         "/addPerson": (context) => const AddPersonView(),
+        "/chatbot" :  (context) => const ChatbotScreen(),
+        "/postscreen" : (context) => const PostScreen(),
+        '/vistalugaresapp': (context) => VistaLugaresApp(), // Asegúrate de que esta sea la pantalla correspondiente
+        "/vistaresena" :  (context) => VistaResenas(),
+        "/chatFriend" :  (context) => ChatFriend(),
       },
     );
   }

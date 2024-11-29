@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wanderrush/Screens/Profile.dart';
 import 'home.dart';
 import 'places.dart';
-import 'Profile.dart';
 import 'PeopleView.dart';
 import 'PostScreen.dart';
+
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
 

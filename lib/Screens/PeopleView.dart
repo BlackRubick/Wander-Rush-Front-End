@@ -5,6 +5,13 @@ class PeopleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Lista de personas con sus nombres y rutas de imágenes
+    final people = [
+      {'name': 'Paco', 'image': 'assets/images/paco.png'},
+      {'name': 'Pato', 'image': 'assets/images/pato.jpg'},
+      {'name': 'Abril', 'image': 'assets/images/abril.jpg'},
+    ];
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -30,17 +37,17 @@ class PeopleView extends StatelessWidget {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
-        itemCount: 10,
+        itemCount: people.length, // Usamos la longitud de la lista de personas
         itemBuilder: (context, index) {
           return Card(
             elevation: 2,
             margin: const EdgeInsets.symmetric(vertical: 8.0),
             child: ListTile(
               leading: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/avatar.png'),
+                backgroundImage: AssetImage(people[index]['image']!), // Imagen específica para cada persona
                 radius: 30,
               ),
-              title: Text('Seol'),
+              title: Text(people[index]['name']!), // Usamos el nombre de la lista
               subtitle: Text('Hola'),
               onTap: () {
                 Navigator.pushNamed(context, '/chatFriend');

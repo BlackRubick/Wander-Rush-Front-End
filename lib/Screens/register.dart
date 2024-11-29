@@ -43,7 +43,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _isLoading = true;
     });
 
-final url = Uri.parse('http://10.0.2.2:8000/register'); 
+    final url = Uri.parse('http://10.0.2.2:8000/api/v1/users');  // URL de tu API
+
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -53,12 +54,16 @@ final url = Uri.parse('http://10.0.2.2:8000/register');
         'password': _passwordController.text,
       }),
     );
+
     setState(() {
       _isLoading = false;
     });
+
     if (response.statusCode == 200) {
+      // Si la respuesta es exitosa, redirigir al login
       Navigator.pushNamed(context, '/login');
     } else {
+      // Mostrar mensaje de error si algo salió mal
       final errorMessage = jsonDecode(response.body)['error'] ?? 'Error al registrar';
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(errorMessage)),

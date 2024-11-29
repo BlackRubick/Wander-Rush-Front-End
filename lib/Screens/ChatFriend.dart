@@ -9,7 +9,13 @@ class ChatFriend extends StatefulWidget {
 }
 
 class _ChatFriendState extends State<ChatFriend> {
-  final List<Map<String, String>> messages = []; 
+  final List<Map<String, String>> messages = [
+    {
+      'text': 'Hola',
+      'sender': 'Paco',
+      'image': 'assets/images/paco.png', // Ajusta la ruta de la imagen
+    }
+  ]; // Mensaje inicial enviado por Paco
   final TextEditingController _controller = TextEditingController();
   bool _showEmojiPicker = false;
 
@@ -18,22 +24,22 @@ class _ChatFriendState extends State<ChatFriend> {
       setState(() {
         messages.add({
           'text': _controller.text,
-          'sender': 'Seol',
-          'image': 'assets/images/avatar.png', 
+          'sender': 'Tú', // Los mensajes enviados serán de "Tú"
+          'image': 'assets/images/avatar_user.png', // Ajusta la imagen del usuario
         });
-        _controller.clear(); 
+        _controller.clear();
       });
     }
   }
 
   void _toggleEmojiPicker() {
     setState(() {
-      _showEmojiPicker = !_showEmojiPicker; 
+      _showEmojiPicker = !_showEmojiPicker;
     });
   }
 
   void _onEmojiSelected(Emoji emoji) {
-    _controller.text += emoji.emoji; 
+    _controller.text += emoji.emoji;
   }
 
   @override
@@ -43,23 +49,23 @@ class _ChatFriendState extends State<ChatFriend> {
         title: Row(
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage('assets/images/avatar.png'),
-              radius: 25, 
+              backgroundImage: AssetImage('assets/images/paco.png'), // Imagen de Paco
+              radius: 25,
             ),
-            const SizedBox(width: 18), 
+            const SizedBox(width: 18),
             const Text(
-              'Seol',
+              'Paco', // Nombre del amigo en el chat
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.white
+                color: Colors.white,
               ),
             ),
           ],
         ),
-        backgroundColor: const Color(0xFF6F4C3E), 
+        backgroundColor: const Color(0xFF6F4C3E),
         elevation: 0,
-        automaticallyImplyLeading: false, 
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -71,20 +77,20 @@ class _ChatFriendState extends State<ChatFriend> {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 4.0),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start, 
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
                         backgroundImage: AssetImage(messages[index]['image']!),
-                        radius: 20, 
+                        radius: 20,
                       ),
-                      const SizedBox(width: 10), 
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
-                            color: messages[index]['sender'] == 'Seol'
-                                ? Colors.grey[300] 
-                                : Color(0xFFE88A73), 
+                            color: messages[index]['sender'] == 'Paco'
+                                ? Colors.grey[300] // Mensajes de Paco
+                                : const Color(0xFFE88A73), // Mensajes del usuario
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Text(
@@ -99,12 +105,12 @@ class _ChatFriendState extends State<ChatFriend> {
               },
             ),
           ),
-          if (_showEmojiPicker) 
+          if (_showEmojiPicker)
             SizedBox(
-              height: 250, 
+              height: 250,
               child: EmojiPicker(
                 onEmojiSelected: (Category? category, Emoji emoji) {
-                  _onEmojiSelected(emoji); 
+                  _onEmojiSelected(emoji);
                 },
               ),
             ),
@@ -114,7 +120,7 @@ class _ChatFriendState extends State<ChatFriend> {
               children: [
                 IconButton(
                   icon: const Icon(Icons.emoji_emotions_outlined),
-                  onPressed: _toggleEmojiPicker, 
+                  onPressed: _toggleEmojiPicker,
                 ),
                 Expanded(
                   child: TextField(
@@ -126,17 +132,17 @@ class _ChatFriendState extends State<ChatFriend> {
                         borderSide: BorderSide.none,
                       ),
                       filled: true,
-                      fillColor: const Color(0xFFDAD3CC), 
+                      fillColor: const Color(0xFFDAD3CC),
                     ),
                   ),
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE88A73), 
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFE88A73),
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.send, color: Colors.white), 
+                    icon: const Icon(Icons.send, color: Colors.white),
                     onPressed: _sendMessage,
                   ),
                 ),

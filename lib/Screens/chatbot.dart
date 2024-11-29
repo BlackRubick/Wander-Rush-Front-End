@@ -87,7 +87,7 @@
             String history = _messages.join('\n');
 
             final response = await http.post(
-              Uri.parse('http://10.14.0.83:5001/ask'),
+              Uri.parse('http://192.168.146.138:5001/ask'),
               headers: {'Content-Type': 'application/json'},
               body: jsonEncode({'question': userMessage, 'history': history}),
             );
